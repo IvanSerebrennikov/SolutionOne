@@ -12,5 +12,7 @@ namespace SO.DataAccess.Entities
         public DateTime BirthDate { get; set; }
 
         public int Gender { get; set; }
+
+        public User User { get; set; }
     }
 }

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
+using SO.DataAccess.Entities.ManyToMany;
 using SO.DataAccess.Interfaces.Entity;
 
 namespace SO.DataAccess.Entities
@@ -9,14 +11,17 @@ namespace SO.DataAccess.Entities
     {
         public int Id { get; set; }
 
+        [MaxLength(256)]
         public string FirstName { get; set; }
 
+        [MaxLength(256)]
         public string MiddleName { get; set; }
 
+        [MaxLength(256)]
         public string LastName { get; set; }
 
         public UserAdditionalInfo AdditionalInfo { get; set; }
 
-        public List<Apartment> Apartments { get; set; } = new List<Apartment>();
+        public List<UserApartment> UserApartments { get; set; } = new List<UserApartment>();
     }
 }

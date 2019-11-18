@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using SO.DataAccess.Entities.ManyToMany;
 using SO.DataAccess.Interfaces.Entity;
 
 namespace SO.DataAccess.Entities
@@ -17,6 +18,6 @@ namespace SO.DataAccess.Entities
 
         public Floor Floor { get; set; }
 
-        public List<User> Users { get; set; } = new List<User>();
+        public List<UserApartment> UserApartments { get; set; } = new List<UserApartment>();
     }
 }
