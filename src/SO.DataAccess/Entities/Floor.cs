@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics.CodeAnalysis;
-using System.Text;
+﻿using System.Collections.Generic;
 using SO.DataAccess.Interfaces.Entity;
 
 namespace SO.DataAccess.Entities

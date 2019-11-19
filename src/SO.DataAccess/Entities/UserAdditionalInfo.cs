@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using SO.DataAccess.Interfaces.Entity;
 
 namespace SO.DataAccess.Entities

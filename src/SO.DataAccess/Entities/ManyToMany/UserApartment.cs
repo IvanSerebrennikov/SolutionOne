@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SO.DataAccess.Entities.ManyToMany
+﻿namespace SO.DataAccess.Entities.ManyToMany
 {
     public class UserApartment
     {

@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 using SO.DataAccess.Entities.ManyToMany;
 using SO.DataAccess.Interfaces.Entity;
 

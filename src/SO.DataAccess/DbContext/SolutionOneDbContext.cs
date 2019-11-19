@@ -24,33 +24,7 @@ namespace SO.DataAccess.DbContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            ConfigureOneToOneUserAndUserAdditionalInfo(modelBuilder);
-
-            ConfigureManyToManyUsersAndApartments(modelBuilder);
-        }
-
-        private void ConfigureOneToOneUserAndUserAdditionalInfo(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<User>()
-                .HasOne(p => p.AdditionalInfo)
-                .WithOne(i => i.User)
-                .HasForeignKey<UserAdditionalInfo>(b => b.Id);
-        }
-
-        private void ConfigureManyToManyUsersAndApartments(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<UserApartment>()
-                .HasKey(t => new {t.UserId, t.ApartmentId});
-
-            modelBuilder.Entity<UserApartment>()
-                .HasOne(ua => ua.User)
-                .WithMany(u => u.UserApartments)
-                .HasForeignKey(ua => ua.UserId);
-
-            modelBuilder.Entity<UserApartment>()
-                .HasOne(ua => ua.Apartment)
-                .WithMany(u => u.UserApartments)
-                .HasForeignKey(ua => ua.ApartmentId);
+            SolutionOneDbContextModelCreationRules.Apply(modelBuilder);
         }
     }
 }

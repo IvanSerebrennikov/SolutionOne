@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 using SO.DataAccess.Entities.ManyToMany;
 using SO.DataAccess.Interfaces.Entity;
 
