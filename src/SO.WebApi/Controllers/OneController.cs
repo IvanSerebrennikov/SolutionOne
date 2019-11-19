@@ -22,6 +22,13 @@ namespace SO.WebApi.Controllers
         }
 
         [HttpGet]
+        [Route("all-cities")]
+        public IEnumerable<CityModel> GetAllCities()
+        {
+            return _citiesDataService.GetAllCities();
+        }
+
+        [HttpGet]
         [Route("cities")]
         public IEnumerable<CityModel> GetCities()
         {

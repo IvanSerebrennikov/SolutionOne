@@ -20,6 +20,26 @@ namespace SO.Domain.DataServices
             _streetsRepository = streetsRepository;
         }
 
+        public IReadOnlyList<CityModel> GetAllCities()
+        {
+            // Projections Test
+
+            var models = _citiesRepository.GetProjections<CityModel>(
+                x => new CityModel
+                {
+                    Id = x.Id,
+                    Name = x.Name,
+                    ApartmentsCount = x.Districts
+                        .SelectMany(d => d.Streets
+                            .SelectMany(s => s.Houses
+                                .SelectMany(h => h.Entrances
+                                    .SelectMany(e => e.Floors
+                                        .SelectMany(f => f.Apartments))))).Count()
+                });
+
+            return models;
+        }
+
         public IReadOnlyList<CityModel> GetCitiesByNames(params string[] names)
         {
             // Lazy Loading Test

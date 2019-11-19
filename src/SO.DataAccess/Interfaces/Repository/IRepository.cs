@@ -18,6 +18,14 @@ namespace SO.DataAccess.Interfaces.Repository
             int? skip = null,
             int? take = null);
 
+        IReadOnlyList<TProjection> GetProjections<TProjection>(
+            Expression<Func<TEntity, TProjection>> projection,
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = null,
+            int? skip = null,
+            int? take = null);
+
         void Create(TEntity entity);
 
         void Update(TEntity entity);

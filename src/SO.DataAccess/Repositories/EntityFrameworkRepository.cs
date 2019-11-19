@@ -34,6 +34,19 @@ namespace SO.DataAccess.Repositories
             return GetQueryable(filter, orderBy, includeProperties, skip, take).ToList();
         }
 
+        public IReadOnlyList<TProjection> GetProjections<TProjection>(
+            Expression<Func<TEntity, TProjection>> projection,
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
+            string includeProperties = null,
+            int? skip = null,
+            int? take = null)
+        {
+            var query = GetQueryable(filter, orderBy, includeProperties, skip, take);
+
+            return query.Select(projection).ToList();
+        }
+
         public void Create(TEntity entity)
         {
             Context.Set<TEntity>().Add(entity);
