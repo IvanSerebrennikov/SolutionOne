@@ -18,8 +18,10 @@ namespace SO.DataAccess.DbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options.UseSqlServer(
-                @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SolutionOne;Integrated Security=True;");
+            options
+                .UseLoggerFactory(LoggerFactories.ConsoleLoggerFactory)
+                .UseSqlServer(
+                    @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SolutionOne;Integrated Security=True;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
