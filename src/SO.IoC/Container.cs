@@ -15,7 +15,9 @@ namespace SO.IoC
         {
             var context = new SolutionOneDbContext();
 
-            return new CitiesDataService(new EntityFrameworkRepository<City, SolutionOneDbContext>(context));
+            return new CitiesDataService(
+                new EntityFrameworkRepository<City, SolutionOneDbContext>(context),
+                new EntityFrameworkRepository<Street, SolutionOneDbContext>(context));
         }
     }
 }

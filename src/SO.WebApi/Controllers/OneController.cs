@@ -27,5 +27,12 @@ namespace SO.WebApi.Controllers
         {
             return _citiesDataService.GetCitiesByNames("CityOne", "CityTwo");
         }
+
+        [HttpGet]
+        [Route("streets")]
+        public IEnumerable<StreetModel> GetStreets()
+        {
+            return _citiesDataService.GetStreetsByCityName("CityOne");
+        }
     }
 }
