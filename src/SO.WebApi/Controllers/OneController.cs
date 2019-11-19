@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using SO.Domain.Interfaces.DataServices;
-using SO.Domain.Models;
+using SO.Domain.UseCases.One.Interfaces;
+using SO.Domain.UseCases.One.Models;
 using SO.IoC;
 
 namespace SO.WebApi.Controllers
@@ -12,7 +12,7 @@ namespace SO.WebApi.Controllers
     public class OneController : ControllerBase
     {
         private readonly ILogger<OneController> _logger;
-        private readonly ICitiesDataService _citiesDataService;
+        private readonly IOneDataService _citiesDataService;
 
         public OneController(
             ILogger<OneController> logger)
@@ -26,20 +26,6 @@ namespace SO.WebApi.Controllers
         public IEnumerable<CityModel> GetAllCities()
         {
             return _citiesDataService.GetAllCities();
-        }
-
-        [HttpGet]
-        [Route("cities")]
-        public IEnumerable<CityModel> GetCities()
-        {
-            return _citiesDataService.GetCitiesByNames("CityOne", "CityTwo");
-        }
-
-        [HttpGet]
-        [Route("streets")]
-        public IEnumerable<StreetModel> GetStreets()
-        {
-            return _citiesDataService.GetStreetsByCityName("CityOne");
         }
     }
 }

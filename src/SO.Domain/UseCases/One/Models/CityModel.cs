@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SO.Domain.Models
+﻿namespace SO.Domain.UseCases.One.Models
 {
     public class CityModel
     {
