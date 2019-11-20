@@ -3,7 +3,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SO.IoC;
+using SO.DataAccess.DI;
+using SO.Domain.DI;
 
 namespace SO.WebApi
 {

@@ -6,7 +6,7 @@ using SO.DataAccess.Entities.ManyToMany;
 
 namespace SO.DataAccess.DbContext
 {
-    public static class SolutionOneDbContextModelCreationRules
+    internal static class SolutionOneDbContextModelCreationRules
     {
         public static List<Action<ModelBuilder>> Rules = new List<Action<ModelBuilder>>
         {

@@ -12,16 +12,16 @@ namespace SO.DataAccess.Repositories
     public class EntityFrameworkRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity
     {
-        protected readonly SolutionOneDbContext Context;
+        private readonly SolutionOneDbContext _context;
 
         public EntityFrameworkRepository(SolutionOneDbContext context)
         {
-            Context = context;
+            _context = context;
         }
 
         public TEntity GetById(int id)
         {
-            return Context.Set<TEntity>().Find(id);
+            return _context.Set<TEntity>().Find(id);
         }
 
         public IReadOnlyList<TEntity> Get(
@@ -49,23 +49,23 @@ namespace SO.DataAccess.Repositories
 
         public void Create(TEntity entity)
         {
-            Context.Set<TEntity>().Add(entity);
+            _context.Set<TEntity>().Add(entity);
         }
 
         public void Update(TEntity entity)
         {
-            var dbSet = Context.Set<TEntity>();
-            if (Context.Entry(entity).State == EntityState.Detached)
+            var dbSet = _context.Set<TEntity>();
+            if (_context.Entry(entity).State == EntityState.Detached)
             {
                 dbSet.Attach(entity);
             }
-            Context.Entry(entity).State = EntityState.Modified;
+            _context.Entry(entity).State = EntityState.Modified;
         }
 
         public void Delete(TEntity entity)
         {
-            var dbSet = Context.Set<TEntity>();
-            if (Context.Entry(entity).State == EntityState.Detached)
+            var dbSet = _context.Set<TEntity>();
+            if (_context.Entry(entity).State == EntityState.Detached)
             {
                 dbSet.Attach(entity);
             }
@@ -74,13 +74,13 @@ namespace SO.DataAccess.Repositories
 
         public void Delete(int id)
         {
-            var entity = Context.Set<TEntity>().Find(id);
+            var entity = _context.Set<TEntity>().Find(id);
             Delete(entity);
         }
 
         public virtual void Save()
         {
-            Context.SaveChanges();
+            _context.SaveChanges();
         }
 
         protected virtual IQueryable<TEntity> GetQueryable(
@@ -90,7 +90,7 @@ namespace SO.DataAccess.Repositories
             int? skip = null,
             int? take = null)
         {
-            IQueryable<TEntity> query = Context.Set<TEntity>();
+            IQueryable<TEntity> query = _context.Set<TEntity>();
 
             if (filter != null)
             {

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using SO.Domain.UseCases.One.Interfaces;
 using SO.Domain.UseCases.One.Models;
-using SO.IoC;
 
 namespace SO.WebApi.Controllers
 {

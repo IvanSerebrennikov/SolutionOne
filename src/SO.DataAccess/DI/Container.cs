@@ -3,10 +3,8 @@ using Microsoft.Extensions.DependencyInjection;
 using SO.DataAccess.DbContext;
 using SO.DataAccess.Interfaces.Repository;
 using SO.DataAccess.Repositories;
-using SO.Domain.UseCases.One;
-using SO.Domain.UseCases.One.Interfaces;
 
-namespace SO.IoC
+namespace SO.DataAccess.DI
 {
     public static class Container
     {
@@ -17,11 +15,6 @@ namespace SO.IoC
                     @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SolutionOne;Integrated Security=True;"));
 
             services.AddScoped(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
-        }
-
-        public static void AddDomainServices(this IServiceCollection services)
-        {
-            services.AddScoped<IOneDataService, OneDataService>();
         }
     }
 }
