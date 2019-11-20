@@ -10,10 +10,6 @@ namespace SO.DataAccess.DI
     {
         public static void AddDataAccessServices(this IServiceCollection services)
         {
-            services.AddDbContext<SolutionOneDbContext>(options =>
-                options.UseSqlServer(
-                    @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SolutionOne;Integrated Security=True;"));
-
             services.AddScoped(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
         }
     }
