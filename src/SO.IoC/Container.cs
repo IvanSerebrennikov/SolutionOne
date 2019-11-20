@@ -1,5 +1,7 @@
-﻿using SO.DataAccess.DbContext;
-using SO.DataAccess.Entities;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using SO.DataAccess.DbContext;
+using SO.DataAccess.Interfaces.Repository;
 using SO.DataAccess.Repositories;
 using SO.Domain.UseCases.One;
 using SO.Domain.UseCases.One.Interfaces;
@@ -8,12 +10,18 @@ namespace SO.IoC
 {
     public static class Container
     {
-        public static IOneDataService GetCitiesDataService()
+        public static void AddDataAccessServices(this IServiceCollection services)
         {
-            var context = new SolutionOneDbContext();
+            services.AddDbContext<SolutionOneDbContext>(options =>
+                options.UseSqlServer(
+                    @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SolutionOne;Integrated Security=True;"));
 
-            return new OneDataService(
-                new EntityFrameworkRepository<City, SolutionOneDbContext>(context));
+            services.AddScoped(typeof(IRepository<>), typeof(EntityFrameworkRepository<>));
+        }
+
+        public static void AddDomainServices(this IServiceCollection services)
+        {
+            services.AddScoped<IOneDataService, OneDataService>();
         }
     }
 }

@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using SO.DataAccess.DbContext;
 using SO.DataAccess.Interfaces.Entity;
 using SO.DataAccess.Interfaces.Repository;
 
 namespace SO.DataAccess.Repositories
 {
-    public class EntityFrameworkRepository<TEntity, TContext> : IRepository<TEntity>
+    public class EntityFrameworkRepository<TEntity> : IRepository<TEntity>
         where TEntity : class, IEntity
-        where TContext : Microsoft.EntityFrameworkCore.DbContext
     {
-        protected readonly TContext Context;
+        protected readonly SolutionOneDbContext Context;
 
-        public EntityFrameworkRepository(TContext context)
+        public EntityFrameworkRepository(SolutionOneDbContext context)
         {
             Context = context;
         }

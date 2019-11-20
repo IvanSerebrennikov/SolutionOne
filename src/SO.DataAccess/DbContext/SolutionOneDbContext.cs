@@ -6,6 +6,10 @@ namespace SO.DataAccess.DbContext
 {
     public class SolutionOneDbContext : Microsoft.EntityFrameworkCore.DbContext
     {
+        public SolutionOneDbContext(DbContextOptions options)
+            : base(options)
+        { }
+
         public DbSet<User> Users { get; set; }
         public DbSet<UserAdditionalInfo> UserAdditionalInfos { get; set; }
         public DbSet<City> Cities { get; set; }
@@ -19,9 +23,7 @@ namespace SO.DataAccess.DbContext
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             options
-                .UseLoggerFactory(LoggerFactories.ConsoleLoggerFactory)
-                .UseSqlServer(
-                    @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=SolutionOne;Integrated Security=True;");
+                .UseLoggerFactory(LoggerFactories.ConsoleLoggerFactory);
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

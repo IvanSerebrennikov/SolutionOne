@@ -15,10 +15,11 @@ namespace SO.WebApi.Controllers
         private readonly IOneDataService _citiesDataService;
 
         public OneController(
-            ILogger<OneController> logger)
+            ILogger<OneController> logger,
+            IOneDataService citiesDataService)
         {
             _logger = logger;
-            _citiesDataService = Container.GetCitiesDataService();
+            _citiesDataService = citiesDataService;
         }
 
         [HttpGet]
