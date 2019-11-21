@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SO.Domain.Entities.Nested
+﻿namespace SO.Domain.Entities.Owns
 {
     public class ScreenLayout
     {

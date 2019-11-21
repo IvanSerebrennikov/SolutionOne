@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using SO.Domain.DataAccessInterfaces.Entity;
-using SO.Domain.Entities.Nested;
+using SO.Domain.Entities.Owns;
 
 namespace SO.Domain.Entities
 {

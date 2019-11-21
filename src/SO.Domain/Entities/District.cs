@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using SO.Domain.DataAccessInterfaces.Entity;
+using SO.Domain.Entities.Owns;
 
 namespace SO.Domain.Entities
 {
@@ -12,6 +13,8 @@ namespace SO.Domain.Entities
         public string Name { get; set; }
 
         public int LivingStandard { get; set; }
+
+        public ScreenLayout ScreenLayout { get; set; }
 
         public int CityId { get; set; }
 

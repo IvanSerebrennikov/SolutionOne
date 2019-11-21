@@ -12,7 +12,8 @@ namespace SO.DataAccess.DbContext
         {
             OneToOneUserAndUserAdditionalInfo,
             ManyToManyUsersAndApartments,
-            CityOwnsScreenLayout
+            CityOwnsScreenLayout,
+            DistrictOwnsScreenLayout
         };
 
         public static void Apply(ModelBuilder modelBuilder)
@@ -49,6 +50,12 @@ namespace SO.DataAccess.DbContext
         private static void CityOwnsScreenLayout(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<City>()
+                .OwnsOne(p => p.ScreenLayout);
+        }
+
+        private static void DistrictOwnsScreenLayout(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<District>()
                 .OwnsOne(p => p.ScreenLayout);
         }
 
