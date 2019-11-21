@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using SO.Domain.Logger;
 
 namespace SO.DataAccess.DbContext
 {
