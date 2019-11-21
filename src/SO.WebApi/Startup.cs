@@ -1,11 +1,8 @@
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SO.DataAccess.DbContext;
-using SO.DataAccess.DI;
 using SO.Domain.DI;
 
 namespace SO.WebApi
@@ -24,10 +21,7 @@ namespace SO.WebApi
         {
             services.AddControllers();
 
-            services.AddDbContext<SolutionOneDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("OneConnection")));
-
-            services.AddDataAccessServices();
+            services.AddDataAccessServices(Configuration);
 
             services.AddDomainServices();
         }

@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using SO.DataAccess.Entities;
-using SO.DataAccess.Entities.ManyToMany;
+using SO.Domain.Entities;
+using SO.Domain.Entities.ManyToMany;
 
 namespace SO.DataAccess.DbContext
 {

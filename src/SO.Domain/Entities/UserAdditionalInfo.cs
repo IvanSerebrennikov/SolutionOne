@@ -1,7 +1,7 @@
 ﻿using System;
-using SO.DataAccess.Interfaces.Entity;
+using SO.Domain.DataAccessInterfaces.Entity;
 
-namespace SO.DataAccess.Entities
+namespace SO.Domain.Entities
 {
     public class UserAdditionalInfo : IEntity
     {

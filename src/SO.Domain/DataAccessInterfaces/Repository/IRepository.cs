@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
-using SO.DataAccess.Interfaces.Entity;
+using SO.Domain.DataAccessInterfaces.Entity;
 
-namespace SO.DataAccess.Interfaces.Repository
+namespace SO.Domain.DataAccessInterfaces.Repository
 {
     public interface IRepository<TEntity>
         where TEntity : class, IEntity

@@ -4,8 +4,8 @@ using System.Linq;
 using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
 using SO.DataAccess.DbContext;
-using SO.DataAccess.Interfaces.Entity;
-using SO.DataAccess.Interfaces.Repository;
+using SO.Domain.DataAccessInterfaces.Entity;
+using SO.Domain.DataAccessInterfaces.Repository;
 
 namespace SO.DataAccess.Repositories
 {

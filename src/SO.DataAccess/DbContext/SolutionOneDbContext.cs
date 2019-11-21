@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using SO.DataAccess.Entities;
-using SO.DataAccess.Entities.ManyToMany;
+using SO.Domain.Entities;
 
 namespace SO.DataAccess.DbContext
 {

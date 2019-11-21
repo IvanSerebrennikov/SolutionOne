@@ -1,4 +1,4 @@
-﻿namespace SO.DataAccess.Entities.ManyToMany
+﻿namespace SO.Domain.Entities.ManyToMany
 {
     public class UserApartment
     {

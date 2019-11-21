@@ -1,9 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using SO.DataAccess.Entities.ManyToMany;
-using SO.DataAccess.Interfaces.Entity;
+using SO.Domain.DataAccessInterfaces.Entity;
+using SO.Domain.Entities.ManyToMany;
 
-namespace SO.DataAccess.Entities
+namespace SO.Domain.Entities
 {
     public class User : IEntity
     {

@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using SO.DataAccess.Entities;
-using SO.DataAccess.Interfaces.Repository;
+using SO.Domain.DataAccessInterfaces.Repository;
+using SO.Domain.Entities;
 using SO.Domain.UseCases.One.Interfaces;
 using SO.Domain.UseCases.One.Models;
 

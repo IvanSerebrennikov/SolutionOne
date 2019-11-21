@@ -1,4 +1,4 @@
-﻿namespace SO.DataAccess.Interfaces.Entity
+﻿namespace SO.Domain.DataAccessInterfaces.Entity
 {
     public interface IEntity
     {

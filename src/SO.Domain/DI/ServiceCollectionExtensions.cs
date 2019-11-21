@@ -4,7 +4,7 @@ using SO.Domain.UseCases.One.Interfaces;
 
 namespace SO.Domain.DI
 {
-    public static class Container
+    public static class ServiceCollectionExtensions
     {
         public static void AddDomainServices(this IServiceCollection services)
         {
