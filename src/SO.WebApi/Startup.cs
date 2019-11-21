@@ -1,6 +1,3 @@
-using System;
-using System.IO;
-using System.Linq;
 using System.Reflection;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
@@ -8,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SO.DataAccess.DbContext;
 
 namespace SO.WebApi
 {
@@ -24,13 +22,16 @@ namespace SO.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+
+            services.AddDbContext<SolutionOneDbContext>(options =>
+                SolutionOneDbContextOptionsConfiguration.Configure(options, Configuration));
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
             var websiteRootDirectory = Configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
-            
-            var assemblies = new Assembly[]
+
+            var assemblies = new[]
             {
                 Assembly.GetExecutingAssembly(),
                 Assembly.Load("SO.Domain"),

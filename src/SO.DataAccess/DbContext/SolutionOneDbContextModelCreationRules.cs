@@ -11,7 +11,8 @@ namespace SO.DataAccess.DbContext
         public static List<Action<ModelBuilder>> Rules = new List<Action<ModelBuilder>>
         {
             OneToOneUserAndUserAdditionalInfo,
-            ManyToManyUsersAndApartments
+            ManyToManyUsersAndApartments,
+            CityOwnsScreenLayout
         };
 
         public static void Apply(ModelBuilder modelBuilder)
@@ -43,6 +44,12 @@ namespace SO.DataAccess.DbContext
                 .HasOne(ua => ua.Apartment)
                 .WithMany(a => a.UserApartments)
                 .HasForeignKey(ua => ua.ApartmentId);
+        }
+
+        private static void CityOwnsScreenLayout(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<City>()
+                .OwnsOne(p => p.ScreenLayout);
         }
 
         #endregion

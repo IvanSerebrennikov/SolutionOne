@@ -4,9 +4,9 @@ using SO.Domain.Logger;
 
 namespace SO.DataAccess.DbContext
 {
-    internal static class SolutionOneDbContextOptionsConfiguration
+    public static class SolutionOneDbContextOptionsConfiguration
     {
-        public static void Configure(DbContextOptionsBuilder<SolutionOneDbContext> builder,
+        public static void Configure(DbContextOptionsBuilder builder,
             IConfiguration configuration)
         {
             builder
