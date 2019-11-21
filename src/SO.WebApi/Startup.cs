@@ -34,7 +34,7 @@ namespace SO.WebApi
             {
                 Assembly.GetExecutingAssembly(),
                 Assembly.Load("SO.Domain"),
-                Assembly.LoadFrom($"{websiteRootDirectory}\\bin\\SO.DataAccess.dll")
+                Assembly.Load("SO.DataAccess")
             };
 
             builder.RegisterAssemblyModules(assemblies);
