@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using SO.Domain.DataAccessInterfaces.Entity;
+using SO.Domain.Entities.Nested;
 
 namespace SO.Domain.Entities
 {
@@ -13,6 +14,8 @@ namespace SO.Domain.Entities
         public string Name { get; set; }
 
         public DateTime FoundationDate { get; set; }
+
+        public ScreenLayout ScreenLayout { get; set; }
 
         public List<District> Districts { get; set; } = new List<District>();
     }
