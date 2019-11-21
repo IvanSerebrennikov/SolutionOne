@@ -21,8 +21,7 @@ namespace SO.DataAccess.DbContext
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
-            options
-                .UseLoggerFactory(LoggerFactories.ConsoleLoggerFactory);
+            
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

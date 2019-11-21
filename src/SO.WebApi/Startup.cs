@@ -1,9 +1,13 @@
+using System;
+using System.IO;
+using System.Linq;
+using System.Reflection;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using SO.Domain.DI;
 
 namespace SO.WebApi
 {
@@ -20,16 +24,26 @@ namespace SO.WebApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+        }
 
-            services.AddDataAccessServices(Configuration);
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            var websiteRootDirectory = Configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
+            
+            var assemblies = new Assembly[]
+            {
+                Assembly.GetExecutingAssembly(),
+                Assembly.Load("SO.Domain"),
+                Assembly.LoadFrom($"{websiteRootDirectory}\\bin\\SO.DataAccess.dll")
+            };
 
-            services.AddDomainServices();
+            builder.RegisterAssemblyModules(assemblies);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment()) 
+            if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
 
             app.UseHttpsRedirection();
@@ -38,10 +52,7 @@ namespace SO.WebApi
 
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }
     }
 }

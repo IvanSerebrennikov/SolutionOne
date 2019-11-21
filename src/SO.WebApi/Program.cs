@@ -1,3 +1,4 @@
+using Autofac.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
 
@@ -12,11 +13,15 @@ namespace SO.WebApi
 
         public static IHostBuilder CreateHostBuilder(string[] args)
         {
-            return Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+            return
+                Host
+                    .CreateDefaultBuilder(args)
+                    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+                    .ConfigureWebHostDefaults(webHostBuilder =>
+                    {
+                        webHostBuilder
+                            .UseStartup<Startup>();
+                    });
         }
     }
 }
