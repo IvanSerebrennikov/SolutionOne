@@ -29,8 +29,6 @@ namespace SO.WebApi
 
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            var websiteRootDirectory = Configuration.GetValue<string>(WebHostDefaults.ContentRootKey);
-
             var assemblies = new[]
             {
                 Assembly.GetExecutingAssembly(),
