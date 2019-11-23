@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Text;
-using AMQPMessages.Messages;
+using AMQPSharedData;
+using AMQPSharedData.Messages;
 using Microsoft.Extensions.ObjectPool;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -19,7 +20,7 @@ namespace SO.Infrastructure.MessageProducing
 
         public void ProduceCityCreated(CityCreatedMessage message)
         {
-            Produce(message, "CityCreated");
+            Produce(message, Queues.CityCreated);
         }
 
         private void Produce<T>(T message, string queueName)   

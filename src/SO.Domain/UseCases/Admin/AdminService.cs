@@ -1,5 +1,5 @@
 ﻿using System;
-using AMQPMessages.Messages;
+using AMQPSharedData.Messages;
 using SO.Domain.DataAccessInterfaces.Repository;
 using SO.Domain.Entities;
 using SO.Domain.Entities.Owns;

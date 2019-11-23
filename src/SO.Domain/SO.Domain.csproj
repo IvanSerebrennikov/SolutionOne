@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AMQPMessages\AMQPMessages.csproj" />
+    <ProjectReference Include="..\AMQPSharedData\AMQPSharedData.csproj" />
   </ItemGroup>
 
 </Project>

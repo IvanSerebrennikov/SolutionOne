@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace AMQPMessages.Messages
+namespace AMQPSharedData.Messages
 {
     public class CityCreatedMessage
     {
