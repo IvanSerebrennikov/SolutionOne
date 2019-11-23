@@ -16,6 +16,11 @@ namespace SO.WebApi.Controllers
             _adminService = adminService;
         }
 
+        /// <summary>
+        /// create new city
+        /// </summary>
+        /// <param name="cityModel">new city model (id should be 0)</param>
+        /// <returns>object with created city Id</returns>
         [HttpPost]
         [Route("create-city")]
         public IActionResult CreateCity(CityModel cityModel)

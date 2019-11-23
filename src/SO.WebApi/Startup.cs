@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.OpenApi.Models;
 using SO.DataAccess.DbContext;
 
 namespace SO.WebApi
@@ -25,6 +26,11 @@ namespace SO.WebApi
 
             services.AddDbContext<SolutionOneDbContext>(options =>
                 SolutionOneDbContextOptionsConfiguration.Configure(options, Configuration));
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SolutionOne API", Version = "v1" });
+            });
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -44,6 +50,16 @@ namespace SO.WebApi
         {
             if (env.IsDevelopment())
                 app.UseDeveloperExceptionPage();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
+            // specifying the Swagger JSON endpoint.
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "SolutionOne API v1");
+            });
 
             app.UseHttpsRedirection();
 

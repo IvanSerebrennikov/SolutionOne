@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace SO.Domain.UseCases.Admin.Models
@@ -8,8 +9,10 @@ namespace SO.Domain.UseCases.Admin.Models
     {
         public int Id { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public DateTime FoundationDate { get; set; }
 
         public CityScreenLayoutModel ScreenLayout { get; set; }
