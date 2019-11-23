@@ -9,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SO.DataAccess.DbContext;
+using SO.Domain.AppSettings;
 
 namespace SO.WebApi
 {
@@ -38,6 +39,8 @@ namespace SO.WebApi
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+
+            services.Configure<RabbitMQSettings>(Configuration.GetSection("rabbitMQ"));
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
