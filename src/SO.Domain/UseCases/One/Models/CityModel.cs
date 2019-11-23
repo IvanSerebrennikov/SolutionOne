@@ -1,6 +1,6 @@
 ﻿namespace SO.Domain.UseCases.One.Models
 {
-    public class CityModel
+    public class CityWithApartmentsCountModel
     {
         public int Id { get; set; }
 

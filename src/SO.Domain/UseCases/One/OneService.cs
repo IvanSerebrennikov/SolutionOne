@@ -7,20 +7,20 @@ using SO.Domain.UseCases.One.Models;
 
 namespace SO.Domain.UseCases.One
 {
-    public class OneDataService : IOneDataService
+    public class OneService : IOneService
     {
         private readonly IRepository<City> _citiesRepository;
 
-        public OneDataService(
+        public OneService(
             IRepository<City> citiesRepository)
         {
             _citiesRepository = citiesRepository;
         }
 
-        public IReadOnlyList<CityModel> GetAllCities()
+        public IReadOnlyList<CityWithApartmentsCountModel> GetAllCities()
         {
-            var models = _citiesRepository.GetProjections<CityModel>(
-                x => new CityModel
+            var models = _citiesRepository.GetProjections<CityWithApartmentsCountModel>(
+                x => new CityWithApartmentsCountModel
                 {
                     Id = x.Id,
                     Name = x.Name,

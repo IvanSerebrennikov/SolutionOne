@@ -80,7 +80,16 @@ namespace SO.DataAccess.Repositories
 
         public virtual void Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // TODO: throw custom DbSave exception
+
+                throw;
+            }
         }
 
         protected virtual IQueryable<TEntity> GetQueryable(

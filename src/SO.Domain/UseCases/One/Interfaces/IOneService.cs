@@ -3,8 +3,8 @@ using SO.Domain.UseCases.One.Models;
 
 namespace SO.Domain.UseCases.One.Interfaces
 {
-    public interface IOneDataService
+    public interface IOneService
     {
-        IReadOnlyList<CityModel> GetAllCities();
+        IReadOnlyList<CityWithApartmentsCountModel> GetAllCities();
     }
 }

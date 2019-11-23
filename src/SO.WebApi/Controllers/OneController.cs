@@ -11,21 +11,21 @@ namespace SO.WebApi.Controllers
     public class OneController : ControllerBase
     {
         private readonly ILogger<OneController> _logger;
-        private readonly IOneDataService _citiesDataService;
+        private readonly IOneService _oneService;
 
         public OneController(
             ILogger<OneController> logger,
-            IOneDataService citiesDataService)
+            IOneService oneService)
         {
             _logger = logger;
-            _citiesDataService = citiesDataService;
+            _oneService = oneService;
         }
 
         [HttpGet]
         [Route("all-cities")]
-        public IEnumerable<CityModel> GetAllCities()
+        public IEnumerable<CityWithApartmentsCountModel> GetAllCities()
         {
-            return _citiesDataService.GetAllCities();
+            return _oneService.GetAllCities();
         }
     }
 }

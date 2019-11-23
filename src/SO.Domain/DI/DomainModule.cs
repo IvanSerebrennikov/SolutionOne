@@ -1,4 +1,7 @@
 ﻿using Autofac;
+using SO.Domain.UseCases._Base.Models.PostResults;
+using SO.Domain.UseCases.Admin;
+using SO.Domain.UseCases.Admin.Interfaces;
 using SO.Domain.UseCases.One;
 using SO.Domain.UseCases.One.Interfaces;
 
@@ -9,8 +12,18 @@ namespace SO.Domain.DI
         protected override void Load(ContainerBuilder builder)
         {
             builder
-                .RegisterType<OneDataService>()
-                .As<IOneDataService>()
+                .RegisterType<PostResultFactory>()
+                .AsSelf()
+                .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<OneService>()
+                .As<IOneService>()
+                .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<AdminService>()
+                .As<IAdminService>()
                 .InstancePerLifetimeScope();
         }
     }
