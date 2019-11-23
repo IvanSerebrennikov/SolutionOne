@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SO.Domain.UseCases.Admin.Interfaces;
 using SO.Domain.UseCases.Admin.Models;
-using SO.WebApi.ActionResults;
 
 namespace SO.WebApi.Controllers
 {
@@ -19,13 +18,14 @@ namespace SO.WebApi.Controllers
 
         [HttpPost]
         [Route("create-city")]
-        public DefaultActionResult CreateCity(CityModel cityModel)
+        public IActionResult CreateCity(CityModel cityModel)
         {
             var creationResult = _adminService.CreateCity(cityModel);
 
-            return creationResult.IsSucceeded
-                ? DefaultActionResult.Ok(creationResult.Message, new {creationResult.CityId})
-                : DefaultActionResult.BadResult(creationResult.Message);
+            if (!creationResult.IsSucceeded)
+                return BadRequest(creationResult.Message);
+
+            return Ok(new {creationResult.CityId});
         }
     }
 }
