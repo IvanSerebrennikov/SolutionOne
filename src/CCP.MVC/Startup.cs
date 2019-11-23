@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CCP.MVC.AppSettings;
+using CCP.MVC.ConsumerService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -24,6 +26,10 @@ namespace CCP.MVC
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+
+            services.Configure<RabbitMQSettings>(Configuration.GetSection("rabbitMQ"));
+
+            services.AddHostedService<RabbitMQConsumerService>();  
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

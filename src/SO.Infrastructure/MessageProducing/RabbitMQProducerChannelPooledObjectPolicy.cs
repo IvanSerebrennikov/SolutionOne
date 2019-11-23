@@ -47,14 +47,14 @@ namespace SO.Infrastructure.MessageProducing
             }  
             else  
             {
-                obj?.Dispose();  
+                obj?.Close();  
                 return false;  
             } 
         }
 
         public void Dispose()
         {
-            _connection?.Dispose();
+            _connection?.Close();
         }
     }
 }
