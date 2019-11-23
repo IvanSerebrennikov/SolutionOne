@@ -1,7 +1,9 @@
 ﻿using System;
+using AMPQMessages.Messages;
 using SO.Domain.DataAccessInterfaces.Repository;
 using SO.Domain.Entities;
 using SO.Domain.Entities.Owns;
+using SO.Domain.InfrastructureInterfaces.MessageProducing;
 using SO.Domain.UseCases._Base.Models.PostResults;
 using SO.Domain.UseCases.Admin.Interfaces;
 using SO.Domain.UseCases.Admin.Models;
@@ -13,17 +15,22 @@ namespace SO.Domain.UseCases.Admin
     {
         private readonly IRepository<City> _citiesRepository;
         private readonly PostResultFactory _postResultFactory;
+        private readonly IMessageProducer _messageProducer;
 
         public AdminService(
             IRepository<City> citiesRepository,
-            PostResultFactory postResultFactory)
+            PostResultFactory postResultFactory,
+            IMessageProducer messageProducer)
         {
             _citiesRepository = citiesRepository;
             _postResultFactory = postResultFactory;
+            _messageProducer = messageProducer;
         }
 
         public CitySavedResult CreateCity(CityModel cityModel)
         {
+            // TODO: validate unique name and etc
+
             // TODO: use any mapper (AutoMapper, Mapster)
             var city = new City
             {
@@ -44,7 +51,12 @@ namespace SO.Domain.UseCases.Admin
                 _citiesRepository.Create(city);
                 _citiesRepository.Save();
 
-                // TODO: send city created message to RabbitMQ
+                _messageProducer.ProduceCityCreated(new CityCreatedMessage
+                {
+                    SolutionOneCityId = city.Id,
+                    Name = city.Name,
+                    FoundationDate = city.FoundationDate
+                });
 
                 return _postResultFactory.Success<CitySavedResult>(additionalSetup: x => x.CityId = city.Id);
             }

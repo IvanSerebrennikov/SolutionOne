@@ -46,7 +46,8 @@ namespace SO.WebApi
             {
                 Assembly.GetExecutingAssembly(),
                 Assembly.Load("SO.Domain"),
-                Assembly.Load("SO.DataAccess")
+                Assembly.Load("SO.DataAccess"),
+                Assembly.Load("SO.Infrastructure")
             };
 
             builder.RegisterAssemblyModules(assemblies);
