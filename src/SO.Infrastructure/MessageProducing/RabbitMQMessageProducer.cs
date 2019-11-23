@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AMPQMessages.Messages;
+using AMQPMessages.Messages;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using SO.Domain.InfrastructureInterfaces.MessageProducing;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using AMPQMessages.Messages;
+using AMQPMessages.Messages;
 
 namespace SO.Domain.InfrastructureInterfaces.MessageProducing
 {
