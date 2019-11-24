@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -19,6 +20,8 @@ namespace CCP.MVC.ConsumerService
 
         private IConnection _connection;
 
+        private readonly List<IModel> _channels = new List<IModel>();
+
         public RabbitMQConsumerService(IOptions<RabbitMQSettings> settings)
         {
             _settings = settings.Value;
@@ -36,7 +39,6 @@ namespace CCP.MVC.ConsumerService
                 VirtualHost = _settings.VHost,  
             };  
 
-            // create connection  
             _connection = factory.CreateConnection();
 
             _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
@@ -56,15 +58,21 @@ namespace CCP.MVC.ConsumerService
             Consume<CityCreatedMessage>(Queues.CityCreated,
                 message =>
                 {
+                    if (message == null)
+                    {
+                        // TODO: ...
+                        return;
+                    }
+
                     // TODO: ...
                 });
         }
 
-        private void Consume<T>(string queueName, Action<T> handler)   
+        private void Consume<T>(string queueName, Action<T> messageHandler)   
             where T : class  
         {
             var channel = _connection.CreateModel();  
-            channel.BasicQos(0, 1, false);
+            channel.BasicQos(0, 1, false); // ??
   
             try  
             {  
@@ -79,12 +87,15 @@ namespace CCP.MVC.ConsumerService
                 consumer.Received += (model, eArgs) =>
                 {
                     // TODO: handle empty string and etc?
+                    var contentString = Encoding.UTF8.GetString(eArgs.Body);
 
                     // received message  
-                    var content = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(eArgs.Body));
+                    var content = !string.IsNullOrEmpty(contentString)
+                        ? JsonConvert.DeserializeObject<T>(contentString)
+                        : null;
 
                     // handle the received message  
-                    handler(content);
+                    messageHandler(content);
 
                     channel.BasicAck(eArgs.DeliveryTag, false);
                 };
@@ -99,12 +110,11 @@ namespace CCP.MVC.ConsumerService
                     autoAck: false,
                     consumer: consumer);
 
-                // TODO: add channel to channels List as class prop to close in Dispose? 
+                _channels.Add(channel);
             }  
             catch (Exception ex)  
             {  
-                // channel.Close(); ??
-                throw ex;  
+                channel.Close();
             }  
             finally  
             {  
@@ -118,7 +128,8 @@ namespace CCP.MVC.ConsumerService
 
         public override void Dispose()
         {
-            _connection.Close();
+            _channels.ForEach(x => x.Close());
+            _connection?.Close();
             base.Dispose();
         }
     }
