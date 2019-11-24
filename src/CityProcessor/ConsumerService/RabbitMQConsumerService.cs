@@ -16,11 +16,17 @@ namespace CityProcessor.ConsumerService
 {
     public class RabbitMQConsumerService : BackgroundService
     {
+        #region Fields
+
         private readonly RabbitMQSettings _settings;
 
         private IConnection _connection;
 
         private readonly List<IModel> _channels = new List<IModel>();
+
+        #endregion
+
+        #region Ctor and Init
 
         public RabbitMQConsumerService(IOptions<RabbitMQSettings> settings)
         {
@@ -44,14 +50,7 @@ namespace CityProcessor.ConsumerService
             _connection.ConnectionShutdown += RabbitMQ_ConnectionShutdown;
         }
 
-        protected override Task ExecuteAsync(CancellationToken stoppingToken)
-        {
-            stoppingToken.ThrowIfCancellationRequested();
-
-            ConsumeCityCreated();
-            
-            return Task.CompletedTask;
-        }
+        #endregion
 
         private void ConsumeCityCreated()
         {
@@ -66,6 +65,17 @@ namespace CityProcessor.ConsumerService
 
                     // TODO: ...
                 });
+        }
+
+        #region Methods for internal usage
+
+        protected override Task ExecuteAsync(CancellationToken stoppingToken)
+        {
+            stoppingToken.ThrowIfCancellationRequested();
+
+            ConsumeCityCreated();
+            
+            return Task.CompletedTask;
         }
 
         private void Consume<T>(string queueName, Action<T> messageHandler)   
@@ -132,5 +142,7 @@ namespace CityProcessor.ConsumerService
             _connection?.Close();
             base.Dispose();
         }
+
+        #endregion
     }
 }
