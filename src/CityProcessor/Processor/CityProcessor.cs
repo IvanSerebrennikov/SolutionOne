@@ -5,6 +5,7 @@ using AMQPSharedData.Messages;
 using CityProcessor.HttpServices;
 using CityProcessor.HttpServices.Models;
 using CityProcessor.Hubs;
+using CityProcessor.Hubs.Messages;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
@@ -42,13 +43,13 @@ namespace CityProcessor.Processor
             // TODO: Generate unique color for all alerts for one message (on back or front)
 
             await _hubContext.Clients.All.ReceiveCityProcessingMessage(
-                ClientMessages.CityCreatedMessageConsumed(message.SolutionOneCityId, message.Name));
+                CityClientMessage.CityCreatedMessageConsumed(message.SolutionOneCityId, message.Name));
 
             string registryKey = null;
             try
             {
                 await _hubContext.Clients.All.ReceiveCityProcessingMessage(
-                    ClientMessages.CityRegistrationRequested(message.SolutionOneCityId, message.Name));
+                    CityClientMessage.CityRegistrationRequested(message.SolutionOneCityId, message.Name));
 
                 registryKey = await _cityRegistryService.PostRegisterCity(new CityModel
                 {
@@ -75,7 +76,7 @@ namespace CityProcessor.Processor
             }
 
             await _hubContext.Clients.All.ReceiveCityProcessingMessage(
-                ClientMessages.CityRegistrationCompleted(message.SolutionOneCityId, message.Name, registryKey));
+                CityClientMessage.CityRegistrationCompleted(message.SolutionOneCityId, message.Name, registryKey));
 
             // TODO: Produce CityRegisteredMessage to RabbitMQ
         }
