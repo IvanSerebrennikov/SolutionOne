@@ -2,24 +2,24 @@
 {
     public static class ClientMessages
     {
-        public static string GetCityCreatedMessageConsumed(int sOneId, string name)
+        public static string CityCreatedMessageConsumed(int sOneId, string name)
         {
             return $"City {sOneId} {name}: Created Message Consumed.";
         }
 
-        public static string GetCityRegistrationRequested(int sOneId, string name)
+        public static string CityRegistrationRequested(int sOneId, string name)
         {
             return $"City {sOneId} {name}: Registration Requested.";
         }
 
-        public static string GetCityRegistrationCompleted(int sOneId, string name, string registerKey)
+        public static string CityRegistrationCompleted(int sOneId, string name, string registryKey)
         {
-            return $"City {sOneId} {name}: Registration Completed. RegisterKey: {registerKey}";
+            return $"City {sOneId} {name}: Registration Completed. RegistryKey: {registryKey}";
         }
 
-        public static string GetCityRegisteredMessageProduced(int sOneId, string name, string registerKey)
+        public static string CityRegisteredMessageProduced(int sOneId, string name, string registryKey)
         {
-            return $"City {sOneId} {name}: Registered Message Produced. RegisterKey: {registerKey}";
+            return $"City {sOneId} {name}: Registered Message Produced. RegistryKey: {registryKey}";
         }
     }
 }

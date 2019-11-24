@@ -1,5 +1,6 @@
 using CityProcessor.AppSettings;
 using CityProcessor.ConsumerService;
+using CityProcessor.HttpServices;
 using CityProcessor.Hubs;
 using CityProcessor.Processor;
 using Microsoft.AspNetCore.Builder;
@@ -31,6 +32,8 @@ namespace CityProcessor
             services.AddSingleton<ICityProcessor, Processor.CityProcessor>();
 
             services.AddSignalR();
+
+            services.AddHttpClient<FakeExternalCityRegistryService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
