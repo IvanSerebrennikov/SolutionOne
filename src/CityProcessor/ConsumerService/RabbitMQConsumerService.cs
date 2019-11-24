@@ -8,6 +8,7 @@ using AMQPSharedData.Messages;
 using CityProcessor.AppSettings;
 using CityProcessor.Processor;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
@@ -18,6 +19,8 @@ namespace CityProcessor.ConsumerService
     public class RabbitMQConsumerService : BackgroundService
     {
         #region Fields
+
+        private readonly ILogger<RabbitMQConsumerService> _logger;
 
         private readonly RabbitMQSettings _settings;
 
@@ -34,9 +37,11 @@ namespace CityProcessor.ConsumerService
         #region Ctor and RabbitMQ Init
 
         public RabbitMQConsumerService(
+            ILogger<RabbitMQConsumerService> logger,
             IOptions<RabbitMQSettings> settings,
             ICityProcessor cityProcessor)
         {
+            _logger = logger;
             _settings = settings.Value;
             _cityProcessor = cityProcessor;
             InitRabbitMQ();
@@ -71,12 +76,6 @@ namespace CityProcessor.ConsumerService
             Consume<CityCreatedMessage>(Queues.CityCreated,
                 message =>
                 {
-                    if (message == null)
-                    {
-                        // TODO: ...
-                        return;
-                    }
-
                     _cityProcessor.ProcessCityCreated(message);
                 });
         }
@@ -96,7 +95,9 @@ namespace CityProcessor.ConsumerService
             where T : class  
         {
             var channel = _connection.CreateModel();  
-            channel.BasicQos(0, 1, false); // ??
+
+            // don't dispatch a new message to a worker until it has processed and acknowledged the previous one
+            channel.BasicQos(0, 1, false); 
   
             try  
             {  
@@ -110,7 +111,6 @@ namespace CityProcessor.ConsumerService
                 var consumer = new EventingBasicConsumer(channel);
                 consumer.Received += (model, eArgs) =>
                 {
-                    // TODO: handle empty string and etc?
                     var contentString = Encoding.UTF8.GetString(eArgs.Body);
 
                     // received message  
@@ -118,10 +118,19 @@ namespace CityProcessor.ConsumerService
                         ? JsonConvert.DeserializeObject<T>(contentString)
                         : null;
 
-                    // handle the received message  
-                    messageHandler(content);
-
-                    channel.BasicAck(eArgs.DeliveryTag, false);
+                    try
+                    {
+                        // handle the received message  
+                        messageHandler(content);
+                        
+                        channel.BasicAck(eArgs.DeliveryTag, false);
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.LogError(e,
+                            $"Unhandled exception during message processing for {typeof(T)}. " +
+                            "Message is unacknowledged and stayed in Queue.");
+                    }
                 };
 
                 consumer.Shutdown += (sender, eArgs) => {};
@@ -136,14 +145,11 @@ namespace CityProcessor.ConsumerService
 
                 _channels.Add(channel);
             }  
-            catch (Exception ex)  
+            catch (Exception e)  
             {  
+                _logger.LogError(e, $"Exception during consumer registration for {typeof(T)}");
                 channel.Close();
-            }  
-            finally  
-            {  
-                                  
-            }  
+            }
         }
 
         private void RabbitMQ_ConnectionShutdown(object sender, ShutdownEventArgs eArgs)

@@ -14,7 +14,13 @@ namespace CityProcessor.Processor
 
         public void ProcessCityCreated(CityCreatedMessage message)
         {
-            _logger.LogDebug($"City with Id {message.SolutionOneCityId} created!");
+            if (message == null)
+            {
+                _logger.LogWarning("ProcessCityCreated: message is null.");
+                return;
+            }
+
+            _logger.LogInformation($"City with Id {message.SolutionOneCityId} created!");
         }
     }
 }
