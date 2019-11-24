@@ -28,8 +28,16 @@ namespace CityProcessor.Processor
                 return;
             }
 
+            // TODO: Generate unique color for all alerts for one message (on back or front)
+
             await _hubContext.Clients.All.ReceiveCityProcessingMessage(
                 ClientMessages.GetCityCreatedMessageConsumed(message.SolutionOneCityId, message.Name));
+
+            // TODO: Send REST Request to FakeExternalCityRegistry
+
+            // TODO: Get Response from FakeExternalCityRegistry
+
+            // TODO: Produce CityRegisteredMessage to RabbitMQ
 
             _logger.LogInformation(
                 $"ProcessCityCreated: Message for City with Id {message.SolutionOneCityId} consumed!");

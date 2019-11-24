@@ -21,7 +21,7 @@
 + RestSharp 
 + Polly
 
-# FakeExternalCityRegistrator Web API
+# FakeExternalCityRegistry Web API
 
 // TODO: 
 
