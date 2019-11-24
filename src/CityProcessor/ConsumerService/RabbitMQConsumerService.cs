@@ -24,14 +24,17 @@ namespace CityProcessor.ConsumerService
 
         private readonly List<IModel> _channels = new List<IModel>();
 
+        private readonly List<Action> _consumers = new List<Action>();
+
         #endregion
 
-        #region Ctor and Init
+        #region Ctor and RabbitMQ Init
 
         public RabbitMQConsumerService(IOptions<RabbitMQSettings> settings)
         {
             _settings = settings.Value;
             InitRabbitMQ();
+            InitConsumers();
         }
 
         private void InitRabbitMQ()
@@ -51,6 +54,11 @@ namespace CityProcessor.ConsumerService
         }
 
         #endregion
+
+        private void InitConsumers()
+        {
+            _consumers.Add(ConsumeCityCreated);
+        }
 
         private void ConsumeCityCreated()
         {
@@ -73,7 +81,7 @@ namespace CityProcessor.ConsumerService
         {
             stoppingToken.ThrowIfCancellationRequested();
 
-            ConsumeCityCreated();
+            _consumers.ForEach(x => x());
             
             return Task.CompletedTask;
         }
