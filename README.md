@@ -6,6 +6,7 @@
 + RabbitMQ 
 
 // TODO: 
+
 + Any mapper (Automapper, etc...)
 + Any cache (Redis, etc...)
 
@@ -14,6 +15,7 @@
 + RabbitMQ
 
 // TODO: 
+
 + SignalR
 + Any Log provider for files logging 
 + RestSharp 
@@ -22,4 +24,5 @@
 # FakeExternalCityRegistrator Web API
 
 // TODO: 
+
 + MongoDB
