@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using AMQPSharedData;
 using AMQPSharedData.Messages;
 using CityProcessor.AppSettings;
+using CityProcessor.Processor;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -20,6 +21,8 @@ namespace CityProcessor.ConsumerService
 
         private readonly RabbitMQSettings _settings;
 
+        private readonly ICityProcessor _cityProcessor;
+
         private IConnection _connection;
 
         private readonly List<IModel> _channels = new List<IModel>();
@@ -30,9 +33,12 @@ namespace CityProcessor.ConsumerService
 
         #region Ctor and RabbitMQ Init
 
-        public RabbitMQConsumerService(IOptions<RabbitMQSettings> settings)
+        public RabbitMQConsumerService(
+            IOptions<RabbitMQSettings> settings,
+            ICityProcessor cityProcessor)
         {
             _settings = settings.Value;
+            _cityProcessor = cityProcessor;
             InitRabbitMQ();
             InitConsumers();
         }
@@ -71,7 +77,7 @@ namespace CityProcessor.ConsumerService
                         return;
                     }
 
-                    // TODO: ...
+                    _cityProcessor.ProcessCityCreated(message);
                 });
         }
 

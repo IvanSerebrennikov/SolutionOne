@@ -1,5 +1,6 @@
 using CityProcessor.AppSettings;
 using CityProcessor.ConsumerService;
+using CityProcessor.Processor;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -24,7 +25,9 @@ namespace CityProcessor
 
             services.Configure<RabbitMQSettings>(Configuration.GetSection("rabbitMQ"));
 
-            services.AddHostedService<RabbitMQConsumerService>();  
+            services.AddHostedService<RabbitMQConsumerService>();
+
+            services.AddSingleton<ICityProcessor, Processor.CityProcessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
