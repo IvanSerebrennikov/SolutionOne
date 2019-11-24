@@ -14,7 +14,7 @@
         $alert.html(text);
 
         if (message.color) {
-            $alert.css("background-color", message.color);
+            $alert.css("border-color", message.color);
         }
 
         $("#cityProcessingInfo").append($alert);

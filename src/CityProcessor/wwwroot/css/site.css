@@ -71,5 +71,5 @@ body {
 }
 
 .city-processing-alert {
-    border-color: gray;
+    border-width: 3px;
 }

@@ -19,6 +19,8 @@ namespace CityProcessor.Processor
 
         private readonly FakeExternalCityRegistryService _cityRegistryService;
 
+        private readonly Random _random;
+
         public CityProcessor(
             ILogger<CityProcessor> logger,
             IHubContext<CityProcessingHub, ICityProcessingClient> hubContext,
@@ -27,6 +29,7 @@ namespace CityProcessor.Processor
             _logger = logger;
             _hubContext = hubContext;
             _cityRegistryService = cityRegistryService;
+            _random = new Random();
         }
 
         public async Task ProcessCityCreated(CityCreatedMessage message)
@@ -40,16 +43,16 @@ namespace CityProcessor.Processor
             _logger.LogInformation(
                 $"ProcessCityCreated: Message for City with Id {message.SolutionOneCityId} consumed!");
 
-            // TODO: Generate unique color for all alerts for one message (on back or front)
+            var actionsGroupColor = GenerateRandomColor();
 
             await _hubContext.Clients.All.ReceiveCityProcessingMessage(
-                CityClientMessage.CityCreatedMessageConsumed(message.SolutionOneCityId, message.Name));
+                CityClientMessage.CityCreatedMessageConsumed(message.SolutionOneCityId, message.Name, actionsGroupColor));
 
             string registryKey = null;
             try
             {
                 await _hubContext.Clients.All.ReceiveCityProcessingMessage(
-                    CityClientMessage.CityRegistrationRequested(message.SolutionOneCityId, message.Name));
+                    CityClientMessage.CityRegistrationRequested(message.SolutionOneCityId, message.Name, actionsGroupColor));
 
                 registryKey = await _cityRegistryService.PostRegisterCity(new CityModel
                 {
@@ -76,9 +79,14 @@ namespace CityProcessor.Processor
             }
 
             await _hubContext.Clients.All.ReceiveCityProcessingMessage(
-                CityClientMessage.CityRegistrationCompleted(message.SolutionOneCityId, message.Name, registryKey));
+                CityClientMessage.CityRegistrationCompleted(message.SolutionOneCityId, message.Name, registryKey, actionsGroupColor));
 
             // TODO: Produce CityRegisteredMessage to RabbitMQ
+        }
+
+        private string GenerateRandomColor()
+        {
+            return $"#{_random.Next(0x1000000):X6}";
         }
     }
 }
