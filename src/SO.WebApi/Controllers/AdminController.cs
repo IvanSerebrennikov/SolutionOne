@@ -21,7 +21,7 @@ namespace SO.WebApi.Controllers
         /// <summary>
         /// create new city
         /// </summary>
-        /// <param name="cityModel">new city model (id should be 0)</param>
+        /// <param name="cityModel">new city model</param>
         /// <returns>object with newly created city Id</returns>
         /// <response code="200">Returns object with newly created city Id</response>
         /// <response code="400">Returns error message if smth goes wrong and city was not created</response>       

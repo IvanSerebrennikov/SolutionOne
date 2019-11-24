@@ -15,6 +15,10 @@ namespace SO.WebApi
 {
     public class Startup
     {
+        private const string DomainAssemblyName = "SO.Domain";
+        private const string DataAccessAssemblyName = "SO.DataAccess";
+        private const string InfrastructureAssemblyName = "SO.Infrastructure";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -35,9 +39,8 @@ namespace SO.WebApi
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "SolutionOne API", Version = "v1" });
 
                 // Set the comments path for the Swagger JSON and UI.
-                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
-                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(GetXmlFilePath(Assembly.GetExecutingAssembly().GetName().Name));
+                c.IncludeXmlComments(GetXmlFilePath(DomainAssemblyName));
             });
 
             services.Configure<RabbitMQSettings>(Configuration.GetSection("rabbitMQ"));
@@ -48,9 +51,9 @@ namespace SO.WebApi
             var assemblies = new[]
             {
                 Assembly.GetExecutingAssembly(),
-                Assembly.Load("SO.Domain"),
-                Assembly.Load("SO.DataAccess"),
-                Assembly.Load("SO.Infrastructure")
+                Assembly.Load(DomainAssemblyName),
+                Assembly.Load(DataAccessAssemblyName),
+                Assembly.Load(InfrastructureAssemblyName)
             };
 
             builder.RegisterAssemblyModules(assemblies);
@@ -79,6 +82,14 @@ namespace SO.WebApi
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
+        }
+
+        private string GetXmlFilePath(string assemblyName)
+        {
+            var xmlFile = $"{assemblyName}.xml";
+            var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+
+            return xmlPath;
         }
     }
 }

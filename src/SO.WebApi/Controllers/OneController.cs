@@ -21,6 +21,10 @@ namespace SO.WebApi.Controllers
             _oneService = oneService;
         }
 
+        /// <summary>
+        /// Get all Cities with Apartments count
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
         [Route("all-cities")]
         public IEnumerable<CityWithApartmentsCountModel> GetAllCities()
