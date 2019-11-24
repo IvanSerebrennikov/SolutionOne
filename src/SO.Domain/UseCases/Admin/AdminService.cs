@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using AMQPSharedData.Messages;
 using SO.Domain.DataAccessInterfaces.Repository;
 using SO.Domain.Entities;
@@ -29,12 +30,12 @@ namespace SO.Domain.UseCases.Admin
 
         public CitySavedResult CreateCity(CityModel cityModel)
         {
-            // TODO: validate unique name and etc
+            var cityName = ProcessCityName(cityModel.Name);
 
             // TODO: use any mapper (AutoMapper, Mapster)
             var city = new City
             {
-                Name = cityModel.Name,
+                Name = cityName,
                 FoundationDate = cityModel.FoundationDate,
                 ScreenLayout = cityModel.ScreenLayout != null
                     ? new ScreenLayout
@@ -66,5 +67,32 @@ namespace SO.Domain.UseCases.Admin
                 return _postResultFactory.Error<CitySavedResult>("Unexpected error", e);
             }
         }
+
+        #region City name processing
+
+        private string ProcessCityName(string requestedName)
+        {
+            requestedName = requestedName.Trim();
+
+            // Swagger example default string value
+            const string exampleName = "string";
+
+            if (string.IsNullOrWhiteSpace(requestedName) || requestedName == exampleName) 
+                return GenerateCityName();
+
+            var isCityWithRequestedNameExist = _citiesRepository.Get(x => x.Name == requestedName).Any();
+
+            if (isCityWithRequestedNameExist) 
+                return GenerateCityName(requestedName);
+
+            return requestedName;
+        }
+
+        private static string GenerateCityName(string firstPart = null)
+        {
+            return $"{firstPart ?? "City"} {Guid.NewGuid().ToString().Replace("-", "")}";
+        }
+
+        #endregion
     }
 }

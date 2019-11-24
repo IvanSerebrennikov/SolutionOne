@@ -9,6 +9,8 @@ namespace SO.Domain.DataAccessInterfaces.Repository
     public interface IRepository<TEntity>
         where TEntity : class, IEntity
     {
+        // TODO: Add GetCount, GetExists and etc methods
+
         TEntity GetById(int id);
 
         IReadOnlyList<TEntity> Get(
