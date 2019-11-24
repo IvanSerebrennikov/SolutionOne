@@ -1,17 +1,12 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CCP.MVC.AppSettings;
-using CCP.MVC.ConsumerService;
+using CityProcessor.AppSettings;
+using CityProcessor.ConsumerService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace CCP.MVC
+namespace CityProcessor
 {
     public class Startup
     {

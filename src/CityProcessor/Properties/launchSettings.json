@@ -15,7 +15,7 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "CCP.MVC": {
+    "CityProcessor": {
       "commandName": "Project",
       "launchBrowser": true,
       "applicationUrl": "https://localhost:6001;http://localhost:6000",

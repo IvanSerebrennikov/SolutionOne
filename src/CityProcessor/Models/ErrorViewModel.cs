@@ -1,6 +1,6 @@
 using System;
 
-namespace CCP.MVC.Models
+namespace CityProcessor.Models
 {
     public class ErrorViewModel
     {

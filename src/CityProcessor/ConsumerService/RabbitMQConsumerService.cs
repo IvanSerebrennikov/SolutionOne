@@ -5,14 +5,14 @@ using System.Threading;
 using System.Threading.Tasks;
 using AMQPSharedData;
 using AMQPSharedData.Messages;
-using CCP.MVC.AppSettings;
+using CityProcessor.AppSettings;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 
-namespace CCP.MVC.ConsumerService
+namespace CityProcessor.ConsumerService
 {
     public class RabbitMQConsumerService : BackgroundService
     {

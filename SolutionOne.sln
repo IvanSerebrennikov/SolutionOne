@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SO.Domain", "src\SO.Domain\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SO.WebApi", "src\SO.WebApi\SO.WebApi.csproj", "{8F71BE37-8206-47C6-942C-C29EF2F5488A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CCP.MVC", "src\CCP.MVC\CCP.MVC.csproj", "{A2F9BC87-1001-4078-A4FC-D2AFD433C141}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CityProcessor", "src\CityProcessor\CityProcessor.csproj", "{A2F9BC87-1001-4078-A4FC-D2AFD433C141}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AMQPSharedData", "src\AMQPSharedData\AMQPSharedData.csproj", "{258A2DA5-6691-498D-9137-9A7FAEEF98CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AMQPSharedData", "src\AMQPSharedData\AMQPSharedData.csproj", "{258A2DA5-6691-498D-9137-9A7FAEEF98CB}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SO.Infrastructure", "src\SO.Infrastructure\SO.Infrastructure.csproj", "{E45618FE-2267-4867-A0D3-6B8C3740EFC5}"
 EndProject

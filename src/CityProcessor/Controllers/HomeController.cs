@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using CCP.MVC.Models;
+using CityProcessor.Models;
 
-namespace CCP.MVC.Controllers
+namespace CityProcessor.Controllers
 {
     public class HomeController : Controller
     {
