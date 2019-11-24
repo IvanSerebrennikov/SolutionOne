@@ -8,6 +8,6 @@ namespace CityProcessor.Processor
 {
     public interface ICityProcessor
     {
-        void ProcessCityCreated(CityCreatedMessage message);
+        Task ProcessCityCreated(CityCreatedMessage message);
     }
 }

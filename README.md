@@ -13,10 +13,10 @@
 # CityProcessor MVC
 
 + RabbitMQ
++ SignalR
 
 // TODO: 
 
-+ SignalR
 + Any Log provider for files logging 
 + RestSharp 
 + Polly

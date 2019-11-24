@@ -1,5 +1,6 @@
 using CityProcessor.AppSettings;
 using CityProcessor.ConsumerService;
+using CityProcessor.Hubs;
 using CityProcessor.Processor;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,6 +29,8 @@ namespace CityProcessor
             services.AddHostedService<RabbitMQConsumerService>();
 
             services.AddSingleton<ICityProcessor, Processor.CityProcessor>();
+
+            services.AddSignalR();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -55,6 +58,7 @@ namespace CityProcessor
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<CityProcessingHub>("/cityProcessingHub");
             });
         }
     }

@@ -1,4 +1,7 @@
-﻿using AMQPSharedData.Messages;
+﻿using System.Threading.Tasks;
+using AMQPSharedData.Messages;
+using CityProcessor.Hubs;
+using Microsoft.AspNetCore.SignalR;
 using Microsoft.Extensions.Logging;
 
 namespace CityProcessor.Processor
@@ -7,12 +10,17 @@ namespace CityProcessor.Processor
     {
         private readonly ILogger<CityProcessor> _logger;
 
-        public CityProcessor(ILogger<CityProcessor> logger)
+        private readonly IHubContext<CityProcessingHub, ICityProcessingClient> _hubContext;
+
+        public CityProcessor(
+            ILogger<CityProcessor> logger,
+            IHubContext<CityProcessingHub, ICityProcessingClient> hubContext)
         {
             _logger = logger;
+            _hubContext = hubContext;
         }
 
-        public void ProcessCityCreated(CityCreatedMessage message)
+        public async Task ProcessCityCreated(CityCreatedMessage message)
         {
             if (message == null)
             {
@@ -20,7 +28,11 @@ namespace CityProcessor.Processor
                 return;
             }
 
-            _logger.LogInformation($"City with Id {message.SolutionOneCityId} created!");
+            await _hubContext.Clients.All.ReceiveCityProcessingMessage(
+                ClientMessages.GetCityCreatedMessageConsumed(message.SolutionOneCityId, message.Name));
+
+            _logger.LogInformation(
+                $"ProcessCityCreated: Message for City with Id {message.SolutionOneCityId} consumed!");
         }
     }
 }
