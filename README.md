@@ -26,3 +26,10 @@
 // TODO: 
 
 + MongoDB
+
+---
+
+// TODO: 
+
++ Add token based auth
++ Add advanced error handling with errors UI monitor
