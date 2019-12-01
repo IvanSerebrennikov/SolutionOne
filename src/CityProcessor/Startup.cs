@@ -25,15 +25,15 @@ namespace CityProcessor
         {
             services.AddControllersWithViews();
 
-            services.Configure<RabbitMQSettings>(Configuration.GetSection("rabbitMQ"));
-
-            services.AddHostedService<RabbitMQConsumerService>();
-
             services.AddSingleton<ICityProcessor, Processor.CityProcessor>();
 
             services.AddSignalR();
 
             services.AddHttpClient<FakeExternalCityRegistryService>();
+
+            services.AddHostedService<RabbitMQConsumerService>();
+
+            services.Configure<RabbitMQSettings>(Configuration.GetSection("rabbitMQ"));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
