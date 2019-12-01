@@ -4,12 +4,14 @@ using System.Reflection;
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SO.DataAccess.DbContext;
 using SO.Domain.AppSettings;
+using SO.Domain.Entities.Identity;
 
 namespace SO.WebApi
 {
