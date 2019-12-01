@@ -7,7 +7,7 @@ using SO.Domain.Entities.Identity;
 
 namespace SO.DataAccess.DbContext
 {
-    public class SolutionOneDbContext : ApiAuthorizationDbContext<AppIdentityUser>
+    public class SolutionOneDbContext : ApiAuthorizationDbContext<UserAccount>
     {
         public SolutionOneDbContext(DbContextOptions options,
             IOptions<OperationalStoreOptions> operationalStoreOptions)

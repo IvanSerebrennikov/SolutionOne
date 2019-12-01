@@ -5,7 +5,7 @@ using SO.Domain.Entities.Owns;
 
 namespace SO.Domain.Entities
 {
-    public class District : IEntity
+    public class District : IEntity<int>
     {
         public int Id { get; set; }
 

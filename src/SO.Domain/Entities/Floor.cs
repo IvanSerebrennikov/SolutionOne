@@ -3,7 +3,7 @@ using SO.Domain.DataAccessInterfaces.Entity;
 
 namespace SO.Domain.Entities
 {
-    public class Floor : IEntity
+    public class Floor : IEntity<int>
     {
         public int Id { get; set; }
 

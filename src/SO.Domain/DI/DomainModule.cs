@@ -1,5 +1,7 @@
 ﻿using Autofac;
 using SO.Domain.UseCases._Base.Models.PostResults;
+using SO.Domain.UseCases.Account;
+using SO.Domain.UseCases.Account.Interfaces;
 using SO.Domain.UseCases.Admin;
 using SO.Domain.UseCases.Admin.Interfaces;
 using SO.Domain.UseCases.One;
@@ -24,6 +26,11 @@ namespace SO.Domain.DI
             builder
                 .RegisterType<AdminService>()
                 .As<IAdminService>()
+                .InstancePerLifetimeScope();
+
+            builder
+                .RegisterType<AccountService>()
+                .As<IAccountService>()
                 .InstancePerLifetimeScope();
         }
     }

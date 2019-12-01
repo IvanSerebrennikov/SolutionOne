@@ -4,7 +4,7 @@ using SO.Domain.DataAccessInterfaces.Entity;
 
 namespace SO.Domain.Entities
 {
-    public class Entrance : IEntity
+    public class Entrance : IEntity<int>
     {
         public int Id { get; set; }
 

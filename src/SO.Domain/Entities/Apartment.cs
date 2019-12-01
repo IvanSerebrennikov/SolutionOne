@@ -4,7 +4,7 @@ using SO.Domain.Entities.ManyToMany;
 
 namespace SO.Domain.Entities
 {
-    public class Apartment : IEntity
+    public class Apartment : IEntity<int>
     {
         public int Id { get; set; }
 

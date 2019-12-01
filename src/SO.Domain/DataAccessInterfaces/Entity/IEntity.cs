@@ -1,7 +1,7 @@
 ﻿namespace SO.Domain.DataAccessInterfaces.Entity
 {
-    public interface IEntity
+    public interface IEntity<TId>
     {
-        int Id { get; }
+        TId Id { get; }
     }
 }

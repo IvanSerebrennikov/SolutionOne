@@ -6,7 +6,7 @@ using SO.Domain.Entities.Owns;
 
 namespace SO.Domain.Entities
 {
-    public class City : IEntity
+    public class City : IEntity<int>
     {
         public int Id { get; set; }
 

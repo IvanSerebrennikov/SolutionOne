@@ -3,7 +3,7 @@ using SO.Domain.DataAccessInterfaces.Entity;
 
 namespace SO.Domain.Entities
 {
-    public class UserAdditionalInfo : IEntity
+    public class UserAdditionalInfo : IEntity<int>
     {
         public int Id { get; set; }
 

@@ -9,10 +9,10 @@ namespace SO.Domain.UseCases.One
 {
     public class OneService : IOneService
     {
-        private readonly IRepository<City> _citiesRepository;
+        private readonly IRepository<City, int> _citiesRepository;
 
         public OneService(
-            IRepository<City> citiesRepository)
+            IRepository<City, int> citiesRepository)
         {
             _citiesRepository = citiesRepository;
         }

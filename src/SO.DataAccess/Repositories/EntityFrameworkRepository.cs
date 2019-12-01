@@ -9,8 +9,8 @@ using SO.Domain.DataAccessInterfaces.Repository;
 
 namespace SO.DataAccess.Repositories
 {
-    public class EntityFrameworkRepository<TEntity> : IRepository<TEntity>
-        where TEntity : class, IEntity
+    public class EntityFrameworkRepository<TEntity, TId> : IRepository<TEntity, TId>
+        where TEntity : class, IEntity<TId>
     {
         private readonly SolutionOneDbContext _context;
 
@@ -19,7 +19,7 @@ namespace SO.DataAccess.Repositories
             _context = context;
         }
 
-        public TEntity GetById(int id)
+        public TEntity GetById(TId id)
         {
             return _context.Set<TEntity>().Find(id);
         }
@@ -72,7 +72,7 @@ namespace SO.DataAccess.Repositories
             dbSet.Remove(entity);
         }
 
-        public void Delete(int id)
+        public void Delete(TId id)
         {
             var entity = _context.Set<TEntity>().Find(id);
             Delete(entity);

@@ -9,8 +9,8 @@ namespace SO.DataAccess.DI
         protected override void Load(ContainerBuilder builder)
         {
             builder
-                .RegisterGeneric(typeof(EntityFrameworkRepository<>))
-                .As(typeof(IRepository<>))
+                .RegisterGeneric(typeof(EntityFrameworkRepository<,>))
+                .As(typeof(IRepository<,>))
                 .InstancePerLifetimeScope();
         }
     }

@@ -6,12 +6,12 @@ using SO.Domain.DataAccessInterfaces.Entity;
 
 namespace SO.Domain.DataAccessInterfaces.Repository
 {
-    public interface IRepository<TEntity>
-        where TEntity : class, IEntity
+    public interface IRepository<TEntity, TId>
+        where TEntity : class, IEntity<TId>
     {
         // TODO: Add GetCount, GetExists and etc methods
 
-        TEntity GetById(int id);
+        TEntity GetById(TId id);
 
         IReadOnlyList<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
@@ -34,7 +34,7 @@ namespace SO.Domain.DataAccessInterfaces.Repository
 
         void Delete(TEntity entity);
 
-        void Delete(int id);
+        void Delete(TId id);
 
         void Save();
     }

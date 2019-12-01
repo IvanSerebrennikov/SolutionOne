@@ -14,12 +14,12 @@ namespace SO.Domain.UseCases.Admin
 {
     public class AdminService : IAdminService
     {
-        private readonly IRepository<City> _citiesRepository;
+        private readonly IRepository<City, int> _citiesRepository;
         private readonly PostResultFactory _postResultFactory;
         private readonly IMessageProducer _messageProducer;
 
         public AdminService(
-            IRepository<City> citiesRepository,
+            IRepository<City, int> citiesRepository,
             PostResultFactory postResultFactory,
             IMessageProducer messageProducer)
         {
