@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Reflection;
 using Autofac;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -36,9 +37,24 @@ namespace SO.WebApi
             services.AddDbContext<SolutionOneDbContext>(options =>
                 SolutionOneDbContextOptionsConfiguration.Configure(options, Configuration));
 
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SolutionOne API", Version = "v1" });
+
+                // Set the comments path for the Swagger JSON and UI.
+                c.IncludeXmlComments(GetXmlFilePath(Assembly.GetExecutingAssembly().GetName().Name));
+                c.IncludeXmlComments(GetXmlFilePath(DomainAssemblyName));
+            });
+
             services.AddDefaultIdentity<UserAccount>(options =>
                     options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<SolutionOneDbContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<UserAccount, SolutionOneDbContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -59,15 +75,6 @@ namespace SO.WebApi
                 options.User.AllowedUserNameCharacters =
                     "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+";
                 options.User.RequireUniqueEmail = false;
-            });
-
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SolutionOne API", Version = "v1" });
-
-                // Set the comments path for the Swagger JSON and UI.
-                c.IncludeXmlComments(GetXmlFilePath(Assembly.GetExecutingAssembly().GetName().Name));
-                c.IncludeXmlComments(GetXmlFilePath(DomainAssemblyName));
             });
 
             services.Configure<RabbitMQSettings>(Configuration.GetSection("rabbitMQ"));
@@ -108,6 +115,7 @@ namespace SO.WebApi
 
             app.UseAuthentication();
             app.UseAuthorization();
+            app.UseIdentityServer();
 
             app.UseEndpoints(endpoints => { endpoints.MapControllers(); });
         }

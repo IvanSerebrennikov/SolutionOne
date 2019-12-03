@@ -23,7 +23,7 @@ namespace SO.WebApi.Controllers
 
         [HttpPost]
         [Route("create-account")]
-        public async Task<IActionResult> CreateCity(UserAccountModel accountModel)
+        public async Task<IActionResult> CreateAccount(UserAccountModel accountModel)
         {
             var creationResult = await _accountService.CreateUserAccount(accountModel);
 
