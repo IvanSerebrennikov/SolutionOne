@@ -18,6 +18,14 @@ namespace SO.Domain.Entities
         [MaxLength(256)]
         public string LastName { get; set; }
 
+        [MaxLength(64)]
+        public string UserName { get; set; }
+
+        [MaxLength(64)]
+        public string NormalizedUserName { get; set; }
+
+        public string PasswordHash { get; set; }
+
         public UserAdditionalInfo AdditionalInfo { get; set; }
 
         public List<UserApartment> UserApartments { get; set; } = new List<UserApartment>();
