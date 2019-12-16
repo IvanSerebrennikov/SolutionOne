@@ -17,8 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SO.Infrastructure", "src\SO
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FakeExternalCityRegistry", "src\FakeExternalCityRegistry\FakeExternalCityRegistry.csproj", "{222C5788-B6CA-4188-9FE2-C39D894CBCED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SO.Account", "src\SO.Account\SO.Account.csproj", "{4E066BA5-BC31-4992-BFE7-95498E4E2140}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -53,10 +51,6 @@ Global
 		{222C5788-B6CA-4188-9FE2-C39D894CBCED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{222C5788-B6CA-4188-9FE2-C39D894CBCED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{222C5788-B6CA-4188-9FE2-C39D894CBCED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E066BA5-BC31-4992-BFE7-95498E4E2140}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E066BA5-BC31-4992-BFE7-95498E4E2140}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E066BA5-BC31-4992-BFE7-95498E4E2140}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E066BA5-BC31-4992-BFE7-95498E4E2140}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

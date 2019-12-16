@@ -26,6 +26,9 @@ namespace SO.Domain.Entities
 
         public string PasswordHash { get; set; }
 
+        [MaxLength(256)]
+        public string Email { get; set; }
+
         public UserAdditionalInfo AdditionalInfo { get; set; }
 
         public List<UserApartment> UserApartments { get; set; } = new List<UserApartment>();
