@@ -1,22 +1,29 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Threading.Tasks;
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
-using SO.Account.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SO.DataAccess.DbContext;
+using SO.Domain.Entities;
 
 namespace SO.Account
 {
     public class Startup
     {
+        private const string DomainAssemblyName = "SO.Domain";
+        private const string DataAccessAssemblyName = "SO.DataAccess";
+        private const string InfrastructureAssemblyName = "SO.Infrastructure";
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -27,13 +34,27 @@ namespace SO.Account
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
-            services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+            services.AddDbContext<SolutionOneDbContext>(options =>
+                SolutionOneDbContextOptionsConfiguration.Configure(options, Configuration));
+
+            services.AddIdentityCore<User>(options => { });
+
             services.AddControllersWithViews();
+
             services.AddRazorPages();
+        }
+
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            var assemblies = new[]
+            {
+                Assembly.GetExecutingAssembly(),
+                Assembly.Load(DomainAssemblyName),
+                Assembly.Load(DataAccessAssemblyName),
+                Assembly.Load(InfrastructureAssemblyName)
+            };
+
+            builder.RegisterAssemblyModules(assemblies);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
