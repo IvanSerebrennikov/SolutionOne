@@ -10,6 +10,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using SO.DataAccess.DbContext;
 using SO.Domain.AppSettings;
+using SO.Domain.Entities;
 
 namespace SO.WebApi
 {
@@ -42,6 +43,8 @@ namespace SO.WebApi
                 c.IncludeXmlComments(GetXmlFilePath(Assembly.GetExecutingAssembly().GetName().Name));
                 c.IncludeXmlComments(GetXmlFilePath(DomainAssemblyName));
             });
+
+            services.AddIdentityCore<User>(options => { });
 
             services.Configure<RabbitMQSettings>(Configuration.GetSection("rabbitMQ"));
         }
