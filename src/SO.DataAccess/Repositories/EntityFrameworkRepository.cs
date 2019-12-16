@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using SO.DataAccess.DbContext;
 using SO.Domain.DataAccessInterfaces.Entity;
@@ -83,6 +84,20 @@ namespace SO.DataAccess.Repositories
             try
             {
                 _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                // TODO: throw custom DbSave exception
+
+                throw;
+            }
+        }
+
+        public virtual async Task SaveAsync()
+        {
+            try
+            {
+                await _context.SaveChangesAsync();
             }
             catch (Exception e)
             {

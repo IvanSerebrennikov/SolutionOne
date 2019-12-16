@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using SO.Domain.DataAccessInterfaces.Entity;
 
 namespace SO.Domain.DataAccessInterfaces.Repository
@@ -37,5 +38,7 @@ namespace SO.Domain.DataAccessInterfaces.Repository
         void Delete(int id);
 
         void Save();
+
+        Task SaveAsync();
     }
 }
